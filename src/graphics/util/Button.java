@@ -2,6 +2,7 @@
 package graphics.util;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 //This class is a rectangle which gives information
 //so that another class can use it to do something,
@@ -52,13 +53,13 @@ public class Button extends Component{
         //hasBorder = false;
     }
     
-    public Button(int x, int y, int width, int height, Image background){
+    public Button(int x, int y, int width, int height, BufferedImage background){
         super(null);
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.background = background;
+        this.background = new Image(background, width, height, x, y);
         //usingBorder = false;
         //hasBorder = false;
     }
@@ -68,8 +69,13 @@ public class Button extends Component{
     }*/
     
     public void draw(Graphics g){
-        g.setColor(color);
-        g.fillRect(x, y, width, height);
+        if(background == null){
+            g.setColor(color);
+            g.fillRect(x, y, width, height);
+        }
+        else{
+            background.draw(g);
+        }
     }
     
     //this was originially created for mouse position, but you
