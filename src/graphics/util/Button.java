@@ -3,6 +3,7 @@ package graphics.util;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 //This class is a rectangle which gives information
 //so that another class can use it to do something,
@@ -11,6 +12,7 @@ public class Button extends Component{
     
     private final int x, y, width, height;
     private Image background;
+    private final ArrayList<String> text;
     //private final boolean hasBorder;
     //private boolean usingBorder;
     //private final Border border;
@@ -43,23 +45,28 @@ public class Button extends Component{
         }
     }*/
     
-    public Button(int x, int y, int width, int height, Color buttonColor){
+    
+    //FIGURE OUT TEXT SCALING
+    
+    public Button(int x, int y, int width, int height, Color buttonColor, ArrayList<String> text){
         super(buttonColor);
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.text = text;
         //usingBorder = false;
         //hasBorder = false;
     }
     
-    public Button(int x, int y, int width, int height, BufferedImage background){
+    public Button(int x, int y, int width, int height, BufferedImage background, ArrayList<String> text){
         super(null);
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.background = new Image(background, width, height, x, y);
+        this.text = text;
         //usingBorder = false;
         //hasBorder = false;
     }
