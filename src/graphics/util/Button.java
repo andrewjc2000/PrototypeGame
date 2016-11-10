@@ -10,9 +10,12 @@ import java.util.ArrayList;
 //however it doesn't do anything but change & display itself
 public class Button extends Component{
     
-    private final int x, y, width, height;
+    private final int x, y, height;
+    private int width;
     private Image background;
     private final ArrayList<String> text;
+    private final Font font;
+    private final boolean definedWidth, usingText;
     //private final boolean hasBorder;
     //private boolean usingBorder;
     //private final Border border;
@@ -47,26 +50,64 @@ public class Button extends Component{
     
     
     //FIGURE OUT TEXT SCALING
+    //DEFINED WIDTH: take in text size as input, change height based on the space the text takes up
+    //DEFINED HEIGHT: text size is (height / # of lines), width changes to fit text
     
-    public Button(int x, int y, int width, int height, Color buttonColor, ArrayList<String> text){
+    public Button(int x, int y, int width, int textSize, Color buttonColor, ArrayList<String> text, String font, Color textColor){
         super(buttonColor);
         this.x = x;
         this.y = y;
+        this.height = text.size() * textSize;
         this.width = width;
-        this.height = height;
         this.text = text;
+        this.font = new Font(font, Font.BOLD, textSize);
+        this.definedWidth = true;
+        usingText = true;
         //usingBorder = false;
         //hasBorder = false;
     }
     
-    public Button(int x, int y, int width, int height, BufferedImage background, ArrayList<String> text){
+    public Button(int x, int y, int height, Color buttonColor, ArrayList<String> text, String font, Color textColor){
+        super(buttonColor);
+        this.x = x;
+        this.y = y;
+        this.height = height;
+        this.text = text;
+        this.font = new Font(font, Font.BOLD, (text.size() == 0) ? 0 : height / text.size());
+        int largestLength = -1;
+        int pos = 0;
+        for(int i = 0;i < text.size();i++){
+            if(text.get(i).length() > largestLength){
+                largestLength = text.get(i).length();
+                pos = i;
+            }
+        }
+        this.definedWidth = false;
+        usingText = true;
+        //usingBorder = false;
+        //hasBorder = false;
+    }
+    
+    public Button(int x, int y, int width, int textSize, BufferedImage background, ArrayList<String> text, String font, Color textColor){
         super(null);
         this.x = x;
         this.y = y;
         this.width = width;
+        this.background = new Image(background, width, height, x, y);
+        this.text = text;
+        usingText = true;
+        //usingBorder = false;
+        //hasBorder = false;
+    }
+    
+    public Button(int x, int y, int height, BufferedImage background, ArrayList<String> text, String font, Color textColor){
+        super(null);
+        this.x = x;
+        this.y = y;
         this.height = height;
         this.background = new Image(background, width, height, x, y);
         this.text = text;
+        usingText = true;
         //usingBorder = false;
         //hasBorder = false;
     }
@@ -76,6 +117,7 @@ public class Button extends Component{
     }*/
     
     public void draw(Graphics g){
+        int width = g.getFontMetrics().stringWidth(text.get(pos));
         if(background == null){
             g.setColor(color);
             g.fillRect(x, y, width, height);
