@@ -54,7 +54,7 @@ public class Image {
     }
     
     public Image(BufferedImage img, int width, int height, int posX, int posY){
-        image = img;
+        image = scale(img, width, height);
         this.width = width;
         this.height = height;
         type = IMG_TYPE.DIMENSIONS;
@@ -121,6 +121,17 @@ public class Image {
         for(int i = 0;i < 3;i++){
             g.drawRect(posX - i, posY - i, width + (i * 2), height + (i * 2));
         }
+    }
+    
+    public static BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
+        BufferedImage scaledImage = null;
+        if (imageToScale != null) {
+            scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
+            Graphics2D graphics2D = scaledImage.createGraphics();
+            graphics2D.drawImage(imageToScale, 0, 0, dWidth, dHeight, null);
+            graphics2D.dispose();
+        }
+        return scaledImage;
     }
     
     public void highlight(Color h){
