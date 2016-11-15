@@ -9,7 +9,7 @@ public abstract class Component {
     
     //original & final colors are used for highlighting any subclass when they
     //so choose.  Same w/ the highlghted boolean.
-    protected final Color originalColor, highlightedColor;
+    protected final Color originalColor;// highlightedColor;
     protected Color color;
     private boolean highlighted;
     
@@ -21,9 +21,9 @@ public abstract class Component {
         highlighted = false;
         this.color = color;
         this.originalColor = color;
-        this.highlightedColor = highlight(color);
+        //this.highlightedColor = highlight(color);
     }
-    
+    /*
     public void highlightComponent(boolean doIt){
         if(doIt){
             highlighted = true;
@@ -66,5 +66,5 @@ public abstract class Component {
         
         return new Color(red, green, blue);
     }//end of highlight method
-    
+    */
 }//end of class

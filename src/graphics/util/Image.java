@@ -105,8 +105,10 @@ public class Image {
         }
         if(y != posY){
             posY = y;
-        }   
-        g.drawImage(image, x, y, x + width, y + height, sX, sY, eX, eY, null);
+        }
+        if(image != null){
+            g.drawImage(image, x, y, x + width, y + height, sX, sY, eX, eY, null);
+        }
         drawBorder(g);
         if(this.highlighted || this.selected){
             g.setColor(highlight);
