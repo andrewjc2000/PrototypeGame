@@ -7,9 +7,10 @@ import container.Frame;
 public class Launcher {
 
     public static void main(String[] args) {
-        Globals.mainFrame = new Frame("Prototype Game");
+        /*Globals.mainFrame = new Frame("Prototype Game", new MainMenu(new ArrayList<>()));
         Globals.mainFrame.setup();
         Globals.mainFrame.start();
+        */
     }
     
 }

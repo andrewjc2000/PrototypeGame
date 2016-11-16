@@ -5,7 +5,6 @@ package container;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import menu.MainMenu;
 
 public class Frame extends JFrame {
     
@@ -14,11 +13,11 @@ public class Frame extends JFrame {
     private boolean init;
     private final AspectContainer contain;
     
-    public Frame(String title){
+    public Frame(String title, Aspect startingAspect){
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.title = title;
         init = false;
-        contain = new AspectContainer(new MainMenu(new ArrayList<>()),5);
+        contain = new AspectContainer(startingAspect,5);//used to be new MainMenu() as paramter
         contentWidth = contain.width;
         contentHeight = contain.height;
     }
@@ -26,7 +25,7 @@ public class Frame extends JFrame {
     public void setup(){
         if(!init){
             init = true;
-            setTitle("AJC Classic Card Games Version 1.0");
+            setTitle(title);
             setMinimumSize(new Dimension(1000, 650));
             setResizable(false);
             setLocationRelativeTo(null);
