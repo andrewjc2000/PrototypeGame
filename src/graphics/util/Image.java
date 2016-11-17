@@ -2,9 +2,10 @@
 package graphics.util;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 
-public class Image {
+public class Image implements ImageObserver {
     
     private final BufferedImage image;
     private final IMG_TYPE type;
@@ -21,6 +22,14 @@ public class Image {
     public int getY(){
         return posY;
     }
+    
+    @Override
+    public boolean imageUpdate(java.awt.Image img, int infoflags, int x, int y, int width, int height) {
+        return true;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
     
     private enum IMG_TYPE {
         ONLY_IMAGE,
@@ -97,6 +106,15 @@ public class Image {
             g.setColor(highlight);
             g.fillRect(posX, posY, width, height);
         }
+    }
+    
+    public void drawAtAngle(Graphics g, double angle){
+        AffineTransform identity = new AffineTransform();
+        Graphics2D g2d = (Graphics2D)g;
+        AffineTransform trans = new AffineTransform();
+        trans.setTransform(identity);
+        trans.rotate(Math.toRadians(angle), width/2, height/2); 
+        g2d.drawImage(image, trans, this);
     }
     
     public void draw(Graphics g, int x, int y){

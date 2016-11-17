@@ -20,6 +20,7 @@ public class Button extends Component implements MouseListener, MouseMotionListe
     private Font font;
     private final boolean usingText;
     private final Cursor def, hand;
+    private boolean hovering;
     //private final boolean hasBorder;
     //private boolean usingBorder;
     //private final Border border;
@@ -73,6 +74,7 @@ public class Button extends Component implements MouseListener, MouseMotionListe
         this.margin = margin;
         def = new Cursor(Cursor.DEFAULT_CURSOR);
         hand = new Cursor(Cursor.HAND_CURSOR);
+        hovering = false;
         //usingBorder = false;
         //hasBorder = false;
     }
@@ -91,6 +93,7 @@ public class Button extends Component implements MouseListener, MouseMotionListe
         this.margin = margin;
         def = new Cursor(Cursor.DEFAULT_CURSOR);
         hand = new Cursor(Cursor.HAND_CURSOR);
+        hovering = false;
         //usingBorder = false;
         //hasBorder = false;
     }
@@ -105,9 +108,10 @@ public class Button extends Component implements MouseListener, MouseMotionListe
         this.width = width;
         bgColor = buttonColor;
         usingText = false;
-        this.margin = 0;def = new Cursor(Cursor.DEFAULT_CURSOR);
+        this.margin = 0;
+        def = new Cursor(Cursor.DEFAULT_CURSOR);
         hand = new Cursor(Cursor.HAND_CURSOR);
-        
+        hovering = false;
         //usingBorder = false;
         //hasBorder = false;
     }
@@ -123,6 +127,7 @@ public class Button extends Component implements MouseListener, MouseMotionListe
         this.margin = 0;
         def = new Cursor(Cursor.DEFAULT_CURSOR);
         hand = new Cursor(Cursor.HAND_CURSOR);
+        hovering = false;
         //usingBorder = false;
         //hasBorder = false;
     }
@@ -160,46 +165,52 @@ public class Button extends Component implements MouseListener, MouseMotionListe
     //based on the rectangle's attributes
     public boolean containsCoords(int coordX, int coordY){
         return (coordX >= x && coordX <= x + width) &&
-               (coordY >= y && coordY <= y + height);
+               (coordY >= y && coordY <= y + height + (margin * 2));
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         if(containsCoords(e.getX(), e.getY())){
-            main.Globals.mainFrame.setCursor(hand);
+            if(!hovering){
+                main.Globals.mainFrame.setCursor(hand);
+                hovering = true;
+            }
         }
         else{
-            main.Globals.mainFrame.setCursor(def);
+            if(hovering){
+                main.Globals.mainFrame.setCursor(def);
+                hovering = false;
+            }
         }
     }
 }//end of class
