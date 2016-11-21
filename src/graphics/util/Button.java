@@ -20,7 +20,7 @@ public class Button extends Component implements MouseListener, MouseMotionListe
     private Font font;
     private final boolean usingText;
     private final Cursor def, hand;
-    private boolean hovering;
+    private boolean hovering, active;
     //private final boolean hasBorder;
     //private boolean usingBorder;
     //private final Border border;
@@ -41,6 +41,10 @@ public class Button extends Component implements MouseListener, MouseMotionListe
                 throw new RuntimeException("Attribute '" + attribute + "' is not a member of this class.");
         }//end of switch
     }//end of method
+    
+    public boolean getActive(){
+        return active;
+    }
     
     /*public boolean getBool(String attribute){
         switch(attribute){
@@ -75,6 +79,7 @@ public class Button extends Component implements MouseListener, MouseMotionListe
         def = new Cursor(Cursor.DEFAULT_CURSOR);
         hand = new Cursor(Cursor.HAND_CURSOR);
         hovering = false;
+        active = false;
         //usingBorder = false;
         //hasBorder = false;
     }
@@ -94,6 +99,7 @@ public class Button extends Component implements MouseListener, MouseMotionListe
         def = new Cursor(Cursor.DEFAULT_CURSOR);
         hand = new Cursor(Cursor.HAND_CURSOR);
         hovering = false;
+        active = false;
         //usingBorder = false;
         //hasBorder = false;
     }
@@ -112,6 +118,7 @@ public class Button extends Component implements MouseListener, MouseMotionListe
         def = new Cursor(Cursor.DEFAULT_CURSOR);
         hand = new Cursor(Cursor.HAND_CURSOR);
         hovering = false;
+        active = false;
         //usingBorder = false;
         //hasBorder = false;
     }
@@ -128,6 +135,7 @@ public class Button extends Component implements MouseListener, MouseMotionListe
         def = new Cursor(Cursor.DEFAULT_CURSOR);
         hand = new Cursor(Cursor.HAND_CURSOR);
         hovering = false;
+        active = false;
         //usingBorder = false;
         //hasBorder = false;
     }
@@ -170,7 +178,11 @@ public class Button extends Component implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(containsCoords(e.getX(), e.getY() - 25)){
+            if(!active){
+                active = true;
+            }
+        }
     }
 
     @Override
@@ -200,7 +212,7 @@ public class Button extends Component implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if(containsCoords(e.getX(), e.getY())){
+        if(containsCoords(e.getX(), e.getY() - 25)){
             if(!hovering){
                 main.Globals.mainFrame.setCursor(hand);
                 hovering = true;

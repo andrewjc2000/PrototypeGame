@@ -36,10 +36,13 @@ public class AspectContainer extends JPanel implements ActionListener {
         aspectUpdater = new Timer(updateRate, this);
     }
     
+    //FINISH THIS
     public void switchAspect(Aspect newAspect){
         aspectUpdater.stop();
+        remove(currentAspect);
         currentAspect = newAspect;
         while(!newAspect.doneLoading()){}
+        add(currentAspect, BorderLayout.CENTER);
         if(!inUse){
             inUse = true;
         }

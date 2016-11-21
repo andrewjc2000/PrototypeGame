@@ -11,7 +11,7 @@ public class Frame extends JFrame {
     private final int contentWidth, contentHeight;
     private final String title;
     private boolean init;
-    private final AspectContainer contain;
+    public final AspectContainer contain;
     
     public Frame(String title, Aspect startingAspect){
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
