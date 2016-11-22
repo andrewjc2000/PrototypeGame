@@ -39,6 +39,7 @@ public class AspectContainer extends JPanel implements ActionListener {
     //FINISH THIS
     public void switchAspect(Aspect newAspect){
         aspectUpdater.stop();
+        invalidate();
         remove(currentAspect);
         currentAspect = newAspect;
         while(!newAspect.doneLoading()){}
@@ -47,6 +48,7 @@ public class AspectContainer extends JPanel implements ActionListener {
             inUse = true;
         }
         aspectUpdater.start();
+        validate();
     }
     
     public void endAspect(){
